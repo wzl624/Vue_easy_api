@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>template</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+        <button @click="changeComponent('Home')">Home</button>
+        <button @click="changeComponent('Post')">Post</button>
+        <button @click="changeComponent('Archive')">Archive</button>
+        <div>
+            <!-- <Home v-show="showComponent === 'Home'"></Home>
+            <Post v-show="showComponent === 'Post'"></Post>
+            <Archive v-show="showComponent === 'Archive'"></Archive> -->
+
+            <component :is="showComponent"></component>
+        </div>
+    </div>
+    <script>
+      
+
+    //   Vue.component("Home",{
+    //       template:`<div>home</div>`
+    //   })
+    //   Vue.component("Post",{
+    //       template:`<div>post</div>`
+    //   })
+    //   Vue.component("Archive",{
+    //       template:`<div>archive</div>`
+    //   })
+
+      const componentMap = {
+          Home:{
+              template:`<div>home</div>`
+          },
+          Post:{
+            template:`<div>post</div>`
+          },
+          Archive:{
+            template:`<div>archive</div>`
+          }
+      }
+
+      const app = new Vue({
+        el: "#app",
+        data:{
+            showComponent: componentMap["Home"]
+        },
+        methods: {
+            changeComponent(componentName) {
+                this.showComponent = componentMap[componentName];
+            }
+        },
+      });
+    </script>
+  </body>
+</html>

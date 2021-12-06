@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>template</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">app
+        <Foo
+        v-model="fooTitle"
+        ></Foo>
+    </div>
+    <script>
+      const Foo = {
+        props:["title"],//v-model形式默认接收参数为value
+        model:{
+            prop:"title",
+            event:"change-title"
+        },
+        template:`
+        <div>Foo
+            {{title}}
+            <button @click="changeTitle">changeTitle</button>
+        </div>
+        `,
+        methods: {
+            changeTitle(){
+                // this.$emit("input","new title");//v-model模式事件名默认规定为input
+                this.$emit("change-title","new title");
+            },
+        },
+      }
+
+      const app = new Vue({
+        el: "#app",
+        data:{
+            fooTitle:"FT",
+        },
+        components:{
+            Foo,
+        },
+        methods: {
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>template</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+    const fooMixin = {
+        data() {
+            return {
+                value: "mixin value"
+            }
+        },
+        mounted() {
+            console.log("mixin mounted");
+        },
+        methods: {
+            getName(){
+                console.log("the mixin name");
+            },
+            getMixinName(){
+                console.log("get mixin name");
+            },
+        },
+    }
+    
+    const Foo = {
+        mixins:[fooMixin],
+        data() {
+            return {
+                value: "foo value"
+            }
+        },
+        template:`
+            <div>{{value}}
+                <button @click="getName">click</button>
+                <button @click="getMixinName">clickMixinName</button>
+                </div>
+        `,
+        mounted() {
+            console.log("foo mounted");
+        },
+        methods: {
+            getName(){
+                console.log("the foo name");
+            }
+        },
+    }
+
+    Vue.mixin({
+        mounted() {
+            console.log("全局混入");
+        },
+    })
+
+    const app = new Vue({
+    el: "#app",
+    components:{
+        Foo,
+    },
+    template: `
+        <div>app
+            <Foo></Foo>
+            </div>
+    `,
+    });
+    </script>
+  </body>
+</html>

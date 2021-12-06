@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>template</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+        <Foo title="a"></Foo>
+    </div>
+    <script>
+        const Foo = {
+            props:{
+                title:{
+                    type:String,//值类型
+                    required:true,//是否必传
+                    default:"i'm foo",//默认值
+                    //检验方法,参数为传入的title
+                    validator(val){
+                        console.log(val);
+                        return val === "a";
+                    },
+                }
+            },
+            template:`<div>Foo
+                <button @click="handleChangeProps">Change Props</button>
+                </div>`,
+                methods: {
+                    handleChangeProps() {
+                        console.log(this.title)
+                        this.title = "c"
+                        console.log(this.title)
+                    }
+                },
+        }
+        const app = new Vue({
+            el: "#app",
+            components:{
+                Foo,
+            }
+        });
+    </script>
+  </body>
+</html>

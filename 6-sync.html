@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>template</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">app
+        <Foo
+        :title.sync="fooTitle"
+        :pagesize.sync="fooPageSize"
+        ></Foo>
+    </div>
+    <script>
+      const Foo = {
+        props:["title","pagesize"],
+        template:`
+        <div>Foo
+            {{title}}---{{pagesize}}
+            <button @click="changeTitle">changeTitle</button>
+            <button @click="changePageSize">changePageSize</button>
+        </div>
+        `,
+        methods: {
+            changeTitle(){
+                this.$emit("update:title","new title");
+            },
+            changePageSize(){
+                this.$emit("update:pagesize",30);
+            },
+        },
+      }
+
+      const app = new Vue({
+        el: "#app",
+        data:{
+            fooTitle:"FT",
+            fooPageSize:20,
+        },
+        components:{
+            Foo,
+        },
+        methods: {
+        },
+      });
+    </script>
+  </body>
+</html>
